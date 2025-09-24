@@ -1,0 +1,451 @@
+/* ------------------------------------------------------------------
+   Base Styles
+------------------------------------------------------------------ */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Soehne Mono, monospace;
+  background: #ffffff;
+  color: #000;
+  line-height: 1.4;
+}
+
+.container {
+  max-width: 976px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ------------------------------------------------------------------
+   Header
+------------------------------------------------------------------ */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* ------------------------------------------------------------------
+    Footer 
+------------------------------------------------------------------ */
+.site-footer {
+  background: #1d1d1d;
+  padding: 2rem 0;
+  text-align: center;
+}
+.site-footer p {
+  font-size: 7rem;
+  font-weight: bold;
+  color: #a3a3a3;
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------
+   Common Elements
+------------------------------------------------------------------ */
+.divider {
+  height: 2px;
+  background: black;
+  margin: 3rem 0;
+}
+
+/* Decorative Boxes */
+.design-boxes {
+  margin-top: -1rem;
+}
+.design-boxes .box {
+  width: 100%;
+  background: black;
+  margin: 6px 0;
+}
+.h-4 { height: 4px; }
+.h-8 { height: 8px; }
+.h-13 { height: 13px; }
+.h-23 { height: 23px; }
+.h-41 { height: 41px; }
+.h-104 { height: 104px; }
+
+/* ------------------------------------------------------------------
+   || INDEX PAGE
+------------------------------------------------------------------ */
+
+/* Hero Section */
+.hero {
+  margin-top: 3rem;
+}
+.hero .feedback {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+.hero .title {
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.tagline {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Features Section */
+.features { 
+display: grid; 
+grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+gap: 2rem; 
+margin-top: 3rem; 
+} 
+
+.feature h3 { 
+font-size: 16px; 
+font-weight: bold; 
+margin-bottom: 10px;
+ } 
+
+.feature p { 
+font-size: 16px; 
+margin: 0; 
+} 
+
+/* Secondary Hero Section */
+.hero-alt {
+  background: black;
+  margin: 4rem 0;
+  padding: 4rem 0;
+}
+.hero-alt h2 {
+  font-size: 4rem;
+  font-weight: bold;
+  color: white;
+  margin: 0 0 10px;
+}
+.hero-alt p {
+  font-size: 1.2rem;
+  color: white;
+  margin-top: 80px;
+}
+
+/* Call to Action */
+.cta {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* ------------------------------------------------------------------
+   || SIZE, THEME, SPEED PAGE
+------------------------------------------------------------------ */
+/* Layout Helpers */
+.grid-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.grid-horizontal {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+/* Base Card */
+.card {
+  padding: 1.2rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  background: #cacaca;
+  box-shadow: #666666 0px 1px 4px;
+  border: rgb(0, 0, 0) solid 1.9px;
+  font-size: 1.1rem;
+}
+
+/* Card Option */
+.card {
+  padding: 1.2rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  background: #cacaca;
+  box-shadow: #666666 0px 1px 4px;
+  border: rgb(0, 0, 0) solid 1.9px;
+  font-size: 1.1rem;
+}
+
+.card p { margin: 0; }   /* reset all card paragraphs */
+
+/* Size Card */
+.card--size {
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+}
+
+.card--size strong {
+  font-size: 1.3rem;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.card--size p {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.card--size:hover { background: #2d2d2e; color: rgb(201, 201, 201); }
+
+/* Theme Card */
+.card--theme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140px;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.theme-box {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.theme-box img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.card--theme p {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.card--theme:hover { background: #2d2d2e; color: rgb(201, 201, 201);}
+
+/* Speed Card */
+.card--speed {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card--speed p {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.card--speed:hover { background: #2d2d2e; color: rgb(201, 201, 201);}
+
+.back-button {
+  display: flex;
+  justify-content: flex-end; /* pushes button to the right */
+  margin-bottom: 1rem;
+}
+
+/* ------------------------------------------------------------------
+   || GAMEPLAY PAGES
+------------------------------------------------------------------ */
+.game-container {
+  margin: 2rem auto 4rem;
+  text-align: center;
+}
+
+/* HUD wrapper aligns scoreboard + button */
+.hud-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 650px; /* match board width */
+  margin: 0 auto 1.5rem;
+  padding: 0 1rem;
+}
+
+/* Scoreboard */
+.scoreboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  font-size: 0.9rem;
+  text-align: left;
+  line-height: 3;
+}
+
+/* Game board grid */
+.board {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  display: grid;
+  gap: 15px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.board-4x4 {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 650px;
+}
+
+.board-6x6 {
+  grid-template-columns: repeat(6, 1fr);
+  max-width: 650px;
+}
+
+.board-8x8 {
+  grid-template-columns: repeat(8, 1fr);
+  max-width: 750px;
+}
+
+/* Game cards */
+.game-card {
+  aspect-ratio: 1 / 1;
+  background: #3f3f3f81;
+  border-radius: 6px;
+  border: rgb(0, 0, 0) solid 2px;
+  cursor: pointer;
+  box-shadow: #666666 0px 1px 4px;
+  transition: background 0.2s ease;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+  background: #666;
+}
+
+/* ------------------------------------------------------------------
+   || RESULTS PAGE   
+------------------------------------------------------------------ */
+/* Stats Section */
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;   
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between; 
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.stat-row span:last-child {
+  font-size: 40px;   
+  font-weight: bold; 
+}
+
+.results-button {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 3rem 0 6rem;
+}
+
+/* ----------------------------
+   Base Button Styles
+----------------------------- */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  font-size: 1.7rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: #666 0px 1px 4px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Variants */
+.btn-primary {
+  background: #000;
+  color: #fcfcfc;
+  border: 1.9px solid #1d1d1d;
+}
+.btn-primary:hover { background: #adecd9; color: #333; }
+
+.btn-secondary {
+  background: #cacaca;
+  color: #000000;
+  border: 1.9px solid #1d1d1d;;
+}
+.btn-secondary:hover { background: #815454; color: #ffffff; }
+
+/* Results page buttons */
+.results-button .btn-primary {
+  font-size: 2rem;
+}
+
+.results-button .btn-secondary {
+  font-size: 1.4rem;
+  padding: 0.4rem 1.4rem;
+}
+
+/* Cancel button */
+.btn-icon {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: #4d4d4d;
+  line-height: 0.5;
+  box-shadow: none;
+  
+}
+.btn-icon:hover { color: #0000003b; }
+
+/* Play Now button */
+.btn-play {
+  color: #000;
+  font-size: 24px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-play:hover {
+  background: none;
+  color: #00000071;
+}
+
+/* Back button */
+.btn-back {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #4d4d4d;
+  line-height: 3;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+.btn-back:hover { 
+  background: none;
+  color: #00000033;
+}
+
