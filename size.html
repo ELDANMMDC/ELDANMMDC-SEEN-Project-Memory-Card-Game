@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEEN - Pick a Size</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="navbar container">
+    <h3 class="logo">SEEN</h3>
+  </header>
+
+<main class="container">
+  <section class="section pick-size">
+    <h2>Pick a Size</h2>
+    <div class="divider"></div>
+    <div class="grid-vertical">
+      <button class="card card--size" onclick="location.href='theme.html'">
+        <strong>4x4</strong>
+        <p>A quick test of focus.</p>
+      </button>
+      <button class="card card--size" onclick="location.href='theme.html'">
+        <strong>6x6</strong>
+        <p>More cards. More to remember.</p>
+      </button>
+      <button class="card card--size" onclick="location.href='theme.html'">
+        <strong>8x8</strong>
+        <p>The full board.</p>
+      </button>
+    </div>
+  </section>
+  <section class="design-boxes" aria-hidden="true">
+    <div class="box h-4"></div>
+    <div class="box h-8"></div>
+    <div class="box h-13"></div>
+    <div class="box h-23"></div>
+    <div class="box h-41"></div>
+    <div class="box h-104"></div>
+  </section>
+  
+  <!---Back Button-->
+    <section class="back-button">
+    <button class="btn btn-back" onclick="history.back()">🡨</button>
+    </section>
+</main>
+
+</body>
+</html>
