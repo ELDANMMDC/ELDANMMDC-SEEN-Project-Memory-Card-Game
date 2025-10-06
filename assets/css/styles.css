@@ -459,6 +459,16 @@ html, body {
     grid-template-columns: 1fr;
   }
 
+  .hero-alt {
+    padding: 4rem 1.5rem; 
+  }
+
+  .hero-alt h2 {
+    font-size: 1.8rem; 
+    line-height: 1.3;  
+    word-break: break-word; 
+  }
+
   .card {
     width: 100%;
   }
