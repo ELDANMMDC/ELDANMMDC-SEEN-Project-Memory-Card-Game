@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEEN - Gameplay 4x4</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="navbar container">
+    <h3 class="logo">SEEN</h3>
+  </header>
+
+  <main class="container game-container text-center py-4">
+    <!-- HUD -->
+    <section class="hud-wrapper d-flex justify-content-between align-items-center mb-3">
+      <div class="scoreboard" aria-live="polite">
+        <div>Moves: <span id="moves">0</span></div>
+        <div>Misses: <span id="misses">0</span></div>
+        <div>Time: <span id="time">00:00</span></div>
+      </div>
+
+      <!-- Cancel Button -->
+      <button type="button" class="btn btn-icon btn-secondary" data-bs-toggle="modal" data-bs-target="#cancelModal" aria-label="Cancel">
+        &#x2716; <!-- cross symbol -->
+      </button>
+    </section>
+
+    <!-- Game Board 4x4 -->
+    <section id="board" role="grid" aria-label="4 by 4 game board" class="board" data-size="4">
+    </section>
+  </main>
+
+  <!-- WIN Results Modal -->
+  <div class="modal fade" id="winModal" tabindex="-1" aria-labelledby="winModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+        <div class="modal-header border-0">
+          <h5 class="modal-title w-100" id="winModalLabel">You Remembered!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-2">Final Time: <strong class="final-time">--:--</strong></p>
+          <p class="mb-2">Moves: <strong class="final-moves">0</strong></p>
+          <p class="mb-0">Misses: <strong class="final-misses">0</strong></p>
+        </div>
+        <div class="modal-footer justify-content-center border-0">
+          <a id="viewResultsBtn" class="btn btn-primary" href="#">View Results</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancel Confirmation Modal -->
+  <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+        <div class="modal-header border-0">
+          <h5 class="modal-title w-100" id="cancelModalLabel">Cancel Game</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to forget what you've SEEN?
+        </div>
+        <div class="modal-footer justify-content-center border-0">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continue Playing</button>
+          <button type="button" class="btn btn-danger" id="confirmCancel">Yes, Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script type="module" src="../assets/js/game-init.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const confirmBtn = document.getElementById('confirmCancel');
+      confirmBtn.addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+    });
+  </script>
+</body>
+</html>
