@@ -157,7 +157,7 @@ header .logo {
 
 .tagline {
   font-size: var(--scale-1);
-  font-weight: 700;
+  font-weight: 500;
   margin-top: 1.25rem;
 }
 

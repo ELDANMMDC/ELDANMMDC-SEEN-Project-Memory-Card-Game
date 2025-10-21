@@ -23,6 +23,8 @@
     return `${mm}:${ss}`;
   }
 
+  document.getElementById('time').textContent = formatTime(timeSec);
+
   const el = (id) => document.getElementById(id);
   if (el('time')) el('time').textContent = formatTime(timeSec);
   if (el('score')) el('score').textContent = String(score);

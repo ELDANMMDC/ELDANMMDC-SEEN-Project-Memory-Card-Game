@@ -14,10 +14,6 @@ export default class UI {
     if (this.missesEl) this.missesEl.textContent = String(n);
   }
 
-  updateMatches(n) {
-    if (this.matchesEl) this.matchesEl.textContent = String(n);
-  }
-
   updateTime(timeString) {
     if (this.timeEl) this.timeEl.textContent = timeString;
   }
@@ -34,6 +30,20 @@ export default class UI {
       if (timeSpan) timeSpan.textContent = time || '--:--';
       if (movesSpan) movesSpan.textContent = String(moves || 0);
       if (missesSpan) missesSpan.textContent = String(misses || 0);
+
+      // populate view results
+      const resultsBtn = this.winModal.querySelector('#viewResultsBtn');
+      if (resultsBtn) {
+        const q = new URLSearchParams({
+          size: payload.size || '',
+          theme: payload.theme || '',
+          speed: payload.speed || '',
+          moves: payload.moves || 0,
+          misses: payload.misses || 0,
+          time: payload.seconds || 0   
+        });
+        resultsBtn.href = `results.html?${q.toString()}`;
+      }
 
       try {
         const modal = new bootstrap.Modal(this.winModal);
