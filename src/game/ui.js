@@ -1,9 +1,9 @@
 export default class UI {
   constructor() {
-    this.movesEl = document.getElementById('moves');   
-    this.missesEl = document.getElementById('misses'); 
-    this.timeEl = document.getElementById('time');     
-    this.winModal = document.getElementById('winModal'); 
+    this.movesEl = document.getElementById('moves');
+    this.missesEl = document.getElementById('misses');
+    this.timeEl = document.getElementById('time');
+    this.winModal = document.getElementById('winModal');
   }
 
   updateMoves(n) {
@@ -19,7 +19,6 @@ export default class UI {
   }
 
   showWinMessage(payload = {}) {
-    // payload
     const { time, moves, misses } = payload;
 
     if (this.winModal) {
@@ -40,16 +39,16 @@ export default class UI {
           speed: payload.speed || '',
           moves: payload.moves || 0,
           misses: payload.misses || 0,
-          time: payload.seconds || 0   
+          time: payload.seconds || 0
         });
         resultsBtn.href = `results.html?${q.toString()}`;
       }
 
-      try {
+      // show modal if bootstrap modal is available
+      if (window.bootstrap && typeof window.bootstrap.Modal === 'function') {
         const modal = new bootstrap.Modal(this.winModal);
         modal.show();
-      } catch (e) {
-        console.warn('Bootstrap not available to show modal, redirecting to results.');
+      } else {
         this._redirectToResults(payload);
       }
     } else {
