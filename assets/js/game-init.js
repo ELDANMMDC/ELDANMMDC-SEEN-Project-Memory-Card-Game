@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const pairs = totalCards / 2;
 
   // image paths
-  const basePath = `../assets/img/${theme}`;
+  const basePath = `assets/img/${theme}`;
   const images = [];
   for (let i = 0; i < pairs; i++) {
     images.push(`${basePath}/${i}.png`);
