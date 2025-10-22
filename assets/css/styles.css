@@ -453,9 +453,8 @@ header .logo {
   margin-top: 7rem;       
 }
 
-
 /* ------------------------------------------------------------------
-   Responsive adjustments
+   Responsive Styles
 ------------------------------------------------------------------ */
 @media (max-width: 600px) {
 
@@ -486,5 +485,25 @@ header .logo {
   .btn {
     font-size: 1.2rem;
     padding: 0.6rem 1.4rem;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Touch Device Styles
+------------------------------------------------------------------ */
+@media (hover: none) and (pointer: coarse) {
+  .btn,
+  .card,
+  .option {
+    cursor: pointer;         
+    transition: none !important;  
+  }
+
+  .btn:active,
+  .game-card:active,
+  .card:active
+   {
+    transform: scale(0.97);
+    filter: brightness(0.9);
   }
 }
