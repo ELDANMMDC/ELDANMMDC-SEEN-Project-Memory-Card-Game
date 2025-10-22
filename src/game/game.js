@@ -140,11 +140,9 @@ export default class Game {
     this.lock = false;
     this.moves = 0;
     this.misses = 0;
-    this.matches = 0;
     if (this.ui) {
       this.ui.updateMoves(this.moves);
       this.ui.updateMisses(this.misses);
-      this.ui.updateMatches(this.matches);
       this.ui.updateTime('00:00');
     }
   }
