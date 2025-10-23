@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // render and start
   board.render();
   game.start();
+  window.game = game;
 });
 
 /* fisher–yates shuffle */

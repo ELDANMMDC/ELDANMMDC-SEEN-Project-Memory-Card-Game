@@ -132,23 +132,64 @@ export default class Game {
     }
   }
 
-  // reset (to be implemented)
-  reset() {
+  // reset 
+  reset(opts = {}) {
+    const { reshuffle = true } = opts;
+
+    // stop & reset timer
+    this.timer.stop();
     this.timer.reset();
+
+    // clear pointers & state
     this.first = null;
     this.second = null;
     this.lock = false;
     this.moves = 0;
     this.misses = 0;
-    if (this.ui) {
-      this.ui.updateMoves(this.moves);
-      this.ui.updateMisses(this.misses);
-      this.ui.updateTime('00:00');
-    }
-  }
+    this.matches = 0;
+    this.totalPairs = (this.size * this.size) / 2;
 
-  stop() {
-    this.timer.stop();
+    // update UI counters
+    if (this.ui) {
+      if (typeof this.ui.updateMoves === 'function') this.ui.updateMoves(this.moves);
+      if (typeof this.ui.updateMisses === 'function') this.ui.updateMisses(this.misses);
+      if (typeof this.ui.updateMatches === 'function') this.ui.updateMatches(this.matches);
+      if (typeof this.ui.updateTime === 'function') this.ui.updateTime('00:00');
+    } else {
+      const timeEl = document.getElementById('time');
+      if (timeEl) timeEl.textContent = '00:00';
+      const movesEl = document.getElementById('moves');
+      if (movesEl) movesEl.textContent = '0';
+      const missesEl = document.getElementById('misses');
+      if (missesEl) missesEl.textContent = '0';
+    }
+
+    // attempt to reshuffle / re-render board if requested
+    if (reshuffle && this.board) {
+      if (typeof this.board.reset === 'function') {
+        this.board.reset();
+      } else if (typeof this.board.shuffle === 'function') {
+        this.board.shuffle();
+        if (typeof this.board.render === 'function') this.board.render();
+      } else if (typeof this.board.init === 'function') {
+        this.board.init();
+      } else if (typeof this.board.setup === 'function') {
+        this.board.setup();
+      } else {
+        // fallback: unflip/clear matched classes on elements in DOM
+        const cards = (typeof this.board.getAllCardElements === 'function')
+          ? this.board.getAllCardElements()
+          : document.querySelectorAll('#board [data-card]');
+        Array.from(cards).forEach((c) => {
+          c.classList.remove('is-revealed', 'is-matched');
+        });
+      }
+    }
+
+    // reattach click handler (in case board was re-rendered)
+    if (this.board && typeof this.board.attachCardClickHandler === 'function') {
+      this.board.attachCardClickHandler((cardEl) => this._onCardClicked(cardEl));
+    }
   }
 }
 
