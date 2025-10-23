@@ -41,7 +41,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: "Orbitron", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   background: var(--bg);
   color: var(--brand);
   line-height: 1.4;
@@ -332,7 +332,6 @@ header .logo {
   border: 2px solid var(--frame, #1d1d1d);
 }
 
-
 /* hover + focus interactions */
 .game-card:hover .card-front,
 .game-card:focus-visible .card-front {
@@ -356,6 +355,10 @@ header .logo {
   opacity: 0.6;
   transform: scale(0.98);
   pointer-events: none;
+}
+
+.game-card, .btn, .card {
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ------------------------------------------------------------------
@@ -425,7 +428,8 @@ header .logo {
 .results-button .btn-secondary { font-size: 1.4rem; padding: 0.4rem 1.4rem; }
 
 /* cancel button */
-.btn-icon.btn-secondary {
+.btn-cancel.btn-secondary,
+.btn-reset.btn-secondary {
   background: none;
   border: none;
   font-size: 0.9rem;   
@@ -491,19 +495,28 @@ header .logo {
 /* ------------------------------------------------------------------
    Touch Device Styles
 ------------------------------------------------------------------ */
+
+/* Touch Device Styles */
 @media (hover: none) and (pointer: coarse) {
-  .btn,
-  .card,
-  .game-card {
-    cursor: pointer;         
-    transition: none !important;  
+  .game-card:hover .card-front,
+  .btn:hover,
+  .card:hover {
+    background: inherit;
+    box-shadow: none;
+    transform: none;
   }
 
+  .game-card,
+  .btn,
+  .card {
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+
+  .game-card:active .card-front,
   .btn:active,
-  .game-card:active,
-  .card:active
-   {
+  .card:active {
     transform: scale(0.97);
-    filter: brightness(0.9);
+    filter: brightness(0.95);
   }
 }
