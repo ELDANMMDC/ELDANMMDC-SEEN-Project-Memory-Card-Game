@@ -123,7 +123,6 @@ export default class Game {
         speed: this.speed
       });
     } else {
-      // fallback
       const q = new URLSearchParams({
         size: this.size, theme: this.theme, speed: this.speed,
         moves: this.moves, misses: this.misses, time: secs
@@ -132,15 +131,13 @@ export default class Game {
     }
   }
 
-  // reset 
+  // reset abd reshuffle
   reset(opts = {}) {
     const { reshuffle = true } = opts;
 
-    // stop & reset timer
     this.timer.stop();
     this.timer.reset();
 
-    // clear pointers & state
     this.first = null;
     this.second = null;
     this.lock = false;
@@ -149,7 +146,6 @@ export default class Game {
     this.matches = 0;
     this.totalPairs = (this.size * this.size) / 2;
 
-    // update UI counters
     if (this.ui) {
       if (typeof this.ui.updateMoves === 'function') this.ui.updateMoves(this.moves);
       if (typeof this.ui.updateMisses === 'function') this.ui.updateMisses(this.misses);
@@ -164,7 +160,6 @@ export default class Game {
       if (missesEl) missesEl.textContent = '0';
     }
 
-    // attempt to reshuffle / re-render board if requested
     if (reshuffle && this.board) {
       if (typeof this.board.reset === 'function') {
         this.board.reset();
@@ -176,7 +171,7 @@ export default class Game {
       } else if (typeof this.board.setup === 'function') {
         this.board.setup();
       } else {
-        // fallback: unflip/clear matched classes on elements in DOM
+        // unflip/clear matched classes on elements
         const cards = (typeof this.board.getAllCardElements === 'function')
           ? this.board.getAllCardElements()
           : document.querySelectorAll('#board [data-card]');
@@ -186,7 +181,6 @@ export default class Game {
       }
     }
 
-    // reattach click handler (in case board was re-rendered)
     if (this.board && typeof this.board.attachCardClickHandler === 'function') {
       this.board.attachCardClickHandler((cardEl) => this._onCardClicked(cardEl));
     }
