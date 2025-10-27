@@ -9,7 +9,6 @@ export default class Game {
     this.theme = options.theme || 'animals';
     this.speed = options.speed || 'normal';
 
-    // state
     this.first = null;
     this.second = null;
     this.lock = false;
@@ -18,24 +17,25 @@ export default class Game {
     this.matches = 0;
     this.totalPairs = (this.size * this.size) / 2;
 
-    // timer
     this.timer = new Timer((secs) => {
-      if (this.ui && typeof this.ui.updateTime === 'function') {
-        this.ui.updateTime(formatTime(secs));
-      } else {
-        const timeEl = document.getElementById('time');
-        if (timeEl) timeEl.textContent = formatTime(secs);
+      const formatted = formatTime(secs);
+      if (this.ui.updateTime) this.ui.updateTime(formatted);
+      else {
+        const el = document.getElementById('time');
+        if (el) el.textContent = formatted;
       }
     });
   }
 
   start() {
-    this.board.attachCardClickHandler((cardEl) => this._onCardClicked(cardEl));
+    if (this.board && typeof this.board.attachCardClickHandler === 'function') {
+      this.board.attachCardClickHandler((cardEl) => this._onCardClicked(cardEl));
+    }
 
-    // initialize UI counters
-    if (this.ui && typeof this.ui.updateMoves === 'function') this.ui.updateMoves(this.moves);
-    if (this.ui && typeof this.ui.updateMisses === 'function') this.ui.updateMisses(this.misses);
-    if (this.ui && typeof this.ui.updateMatches === 'function') this.ui.updateMatches(this.matches);
+    // initialize UI values
+    this.ui?.updateMoves?.(0);
+    this.ui?.updateMisses?.(0);
+    this.ui?.updateMatches?.(0);
   }
 
   _onCardClicked(cardEl) {
@@ -43,12 +43,11 @@ export default class Game {
     if (!cardEl) return;
     if (cardEl.classList.contains('is-revealed') || cardEl.classList.contains('is-matched')) return;
 
-    // start timer on first interaction
+    // start timer on first move
     if (this.moves === 0 && this.matches === 0 && !this.timer.isRunning()) {
       this.timer.start();
     }
 
-    // reveal card
     this.board.flip(cardEl);
 
     if (!this.first) {
@@ -56,13 +55,12 @@ export default class Game {
       return;
     }
 
-    // prevent clicking the same card twice
-    if (this.first === cardEl) return;
+    if (this.first === cardEl) return; // same card clicked
 
     this.second = cardEl;
     this.lock = true;
-    this.moves += 1;
-    if (this.ui && typeof this.ui.updateMoves === 'function') this.ui.updateMoves(this.moves);
+    this.moves++;
+    this.ui?.updateMoves?.(this.moves);
 
     const srcA = this.board.getCardImageSrc(this.first);
     const srcB = this.board.getCardImageSrc(this.second);
@@ -72,26 +70,25 @@ export default class Game {
       setTimeout(() => {
         this.board.markMatched(this.first);
         this.board.markMatched(this.second);
-        this.matches += 1;
-        if (this.ui && typeof this.ui.updateMatches === 'function') this.ui.updateMatches(this.matches);
+        this.matches++;
 
-        // reset pointers
+        this.ui?.updateMatches?.(this.matches);
+
         this.first = null;
         this.second = null;
         this.lock = false;
 
-        // win condition
         if (this.matches === this.totalPairs) {
           this._win();
         }
       }, this._speedToMs() / 2);
     } else {
-        // no match
+      // not a match
       setTimeout(() => {
         this.board.unflip(this.first);
         this.board.unflip(this.second);
-        this.misses += 1;
-        if (this.ui && typeof this.ui.updateMisses === 'function') this.ui.updateMisses(this.misses);
+        this.misses++;
+        this.ui?.updateMisses?.(this.misses);
 
         this.first = null;
         this.second = null;
@@ -103,16 +100,15 @@ export default class Game {
   _speedToMs() {
     if (this.speed === 'fast') return 200;
     if (this.speed === 'slow') return 900;
-    return 350; 
+    return 350;
   }
 
   _win() {
     this.timer.stop();
-    const secs = this.timer.getTime(); 
+    const secs = this.timer.getTime();
     const formatted = formatTime(secs);
 
-    // call UI to show win modal or redirect
-    if (this.ui && typeof this.ui.showWinMessage === 'function') {
+    if (this.ui.showWinMessage) {
       this.ui.showWinMessage({
         time: formatted,
         seconds: secs,
@@ -131,63 +127,34 @@ export default class Game {
     }
   }
 
-  // reset abd reshuffle
-  reset(opts = {}) {
-    const { reshuffle = true } = opts;
-
+  // reset logic
+  reset({ reshuffle = true } = {}) {
     this.timer.stop();
     this.timer.reset();
-
     this.first = null;
     this.second = null;
     this.lock = false;
     this.moves = 0;
     this.misses = 0;
     this.matches = 0;
-    this.totalPairs = (this.size * this.size) / 2;
 
-    if (this.ui) {
-      if (typeof this.ui.updateMoves === 'function') this.ui.updateMoves(this.moves);
-      if (typeof this.ui.updateMisses === 'function') this.ui.updateMisses(this.misses);
-      if (typeof this.ui.updateMatches === 'function') this.ui.updateMatches(this.matches);
-      if (typeof this.ui.updateTime === 'function') this.ui.updateTime('00:00');
-    } else {
-      const timeEl = document.getElementById('time');
-      if (timeEl) timeEl.textContent = '00:00';
-      const movesEl = document.getElementById('moves');
-      if (movesEl) movesEl.textContent = '0';
-      const missesEl = document.getElementById('misses');
-      if (missesEl) missesEl.textContent = '0';
-    }
+    this.ui?.updateMoves?.(0);
+    this.ui?.updateMisses?.(0);
+    this.ui?.updateMatches?.(0);
+    this.ui?.updateTime?.('00:00');
 
     if (reshuffle && this.board) {
       if (typeof this.board.reset === 'function') {
-        this.board.reset();
-      } else if (typeof this.board.shuffle === 'function') {
-        this.board.shuffle();
-        if (typeof this.board.render === 'function') this.board.render();
-      } else if (typeof this.board.init === 'function') {
-        this.board.init();
-      } else if (typeof this.board.setup === 'function') {
-        this.board.setup();
+        this.board.reset(); 
       } else {
-        // unflip/clear matched classes on elements
-        const cards = (typeof this.board.getAllCardElements === 'function')
-          ? this.board.getAllCardElements()
-          : document.querySelectorAll('#board [data-card]');
-        Array.from(cards).forEach((c) => {
-          c.classList.remove('is-revealed', 'is-matched');
-        });
+        const cards = document.querySelectorAll('#board .game-card');
+        cards.forEach(card => card.classList.remove('is-revealed', 'is-matched'));
       }
-    }
-
-    if (this.board && typeof this.board.attachCardClickHandler === 'function') {
-      this.board.attachCardClickHandler((cardEl) => this._onCardClicked(cardEl));
     }
   }
 }
 
-/* helpers */
+/* Utility */
 function formatTime(totalSeconds) {
   const mm = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
   const ss = String(totalSeconds % 60).padStart(2, '0');

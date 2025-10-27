@@ -3,7 +3,8 @@ export default class Board {
     this.boardElement = boardElement;
     this.size = Number(size) || 4;
     this.imagePaths = imagePaths.slice();
-    this.cardElements = []; 
+    this.cardElements = [];
+    this._clickHandler = null; 
   }
 
   render() {
@@ -19,7 +20,6 @@ export default class Board {
   }
 
   _createCardElement(imageSrc, index) {
-    // button for accessibility
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'game-card';
@@ -27,7 +27,6 @@ export default class Board {
     btn.setAttribute('role', 'gridcell');
     btn.setAttribute('aria-label', 'Hidden card');
 
-    // inner structure
     const inner = document.createElement('span');
     inner.className = 'card-inner';
 
@@ -39,10 +38,9 @@ export default class Board {
     back.className = 'card-back';
     back.setAttribute('aria-hidden', 'true');
 
-    // image fallback
     const img = document.createElement('img');
     img.src = imageSrc;
-    img.alt = ''; 
+    img.alt = '';
     img.addEventListener('error', () => {
       img.remove();
       back.classList.add('no-image');
@@ -53,13 +51,14 @@ export default class Board {
     inner.appendChild(front);
     inner.appendChild(back);
     btn.appendChild(inner);
-
     return btn;
   }
 
   attachCardClickHandler(handler) {
+    this._clickHandler = handler; 
+
     this.boardElement.addEventListener('click', (ev) => {
-      const btn = ev.target.closest && ev.target.closest('.game-card');
+      const btn = ev.target.closest('.game-card');
       if (!btn) return;
       handler(btn);
     });
@@ -87,5 +86,25 @@ export default class Board {
     if (!cardEl) return null;
     const img = cardEl.querySelector('.card-back img');
     return img ? img.src : null;
+  }
+
+  reset() {
+    // remove revealed/matched and restore states
+    this.cardElements.forEach(card => {
+      card.classList.remove('is-revealed', 'is-matched');
+      card.setAttribute('aria-pressed', 'false');
+      card.setAttribute('aria-hidden', 'false');
+    });
+
+    // shuffle + re-render cards
+    this._shuffleImages();
+    this.render();
+  }
+
+  _shuffleImages() {
+    for (let i = this.imagePaths.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.imagePaths[i], this.imagePaths[j]] = [this.imagePaths[j], this.imagePaths[i]];
+    }
   }
 }
