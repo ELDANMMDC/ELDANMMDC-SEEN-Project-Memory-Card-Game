@@ -490,6 +490,12 @@ header .logo {
     font-size: 1.2rem;
     padding: 0.6rem 1.4rem;
   }
+
+  .game-card,
+  .game-card .card-front,
+  .game-card .card-back {
+    border-radius: 4px !important;
+  }
 }
 
 /* ------------------------------------------------------------------
