@@ -15,9 +15,14 @@
     </h3>
   </header>
 
-  <main class="container game-container text-center py-4">
+  <main class="container game-container text-center py-1">
+
+    <!-- Game Board 6x6 -->
+    <section id="board" role="grid" aria-label="6 by 6 game board" class="board" data-size="6">
+    </section>
+
     <!-- HUD -->
-    <section class="hud-wrapper d-flex justify-content-between align-items-center mb-3">
+    <section class="hud-wrapper d-flex justify-content-between align-items-center mb-4">
       <div class="scoreboard" aria-live="polite">
         <div>Moves: <span id="moves">0</span></div>
         <div>Misses: <span id="misses">0</span></div>
@@ -33,10 +38,6 @@
       <button type="button" class="btn btn-cancel btn-secondary" data-bs-toggle="modal" data-bs-target="#cancelModal" aria-label="Cancel">
         &#x2716; 
       </button>
-    </section>
-
-    <!-- Game Board 6x6 -->
-    <section id="board" role="grid" aria-label="6 by 6 game board" class="board" data-size="6">
     </section>
   </main>
 

@@ -15,9 +15,9 @@
     </h3>
   </header>
     
-  <main class="container">
+  <main class="container py-5">
     <!-- Hero Section -->
-    <section class="hero text-left">
+    <section class="hero text-start text-md-left">
       <h1 class="feedback mb-4">Well Done, Player</h1>
       <div class="design-boxes" aria-hidden="true">
         <div class="box h-4"></div>
@@ -27,34 +27,38 @@
         <div class="box h-41"></div>
         <div class="box h-104"></div>
       </div>
-      <p class="tagline">Train Smarter. Think Sharper.</p>
+      <p class="tagline mt-4">Train Smarter. Think Sharper.</p>
     </section>
 
     <!-- Divider -->
     <div class="divider"></div>
 
     <!-- Stats Section -->
-    <section class="stats">
-        <div class="stat-row d-flex justify-content-between mb-2">
-            <span>Time Taken:</span>
-            <span id="time">00:00</span>
-        </div>
-        <div class="stat-row d-flex justify-content-between mb-2">
-            <span>Score:</span>
-            <span id="score">00</span>
-        </div>
-        <div class="stat-row d-flex justify-content-between mb-2">
-            <span>Moves:</span>
-            <span id="moves">00</span>
-        </div>
-        <div class="stat-row d-flex justify-content-between mb-2">
-            <span>Misses:</span>
-            <span id="misses">00</span>
-        </div>
-        <div class="stat-row d-flex justify-content-between mb-2">
-            <span>Accuracy:</span>
-            <span id="accuracy">0%</span>
-        </div>
+    <section class="stats container my-5">
+      <div class="row mb-4">
+        <div class="col-6 fw-bold fs-5">Time Taken:</div>
+        <div class="col-6 text-end fs-4" id="time">00:00</div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-6 fw-bold fs-5">Score:</div>
+        <div class="col-6 text-end fs-4" id="score">00</div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-6 fw-bold fs-5">Moves:</div>
+        <div class="col-6 text-end fs-4" id="moves">00</div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-6 fw-bold fs-5">Misses:</div>
+        <div class="col-6 text-end fs-4" id="misses">00</div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-6 fw-bold fs-5">Accuracy:</div>
+        <div class="col-6 text-end fs-4" id="accuracy">0%</div>
+      </div>
     </section>
 
     <!-- Divider -->
