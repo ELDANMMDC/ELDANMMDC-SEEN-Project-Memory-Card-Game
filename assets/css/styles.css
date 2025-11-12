@@ -46,6 +46,7 @@ html, body {
   color: var(--brand);
   line-height: 1.4;
   font-size: var(--base-font-size);
+  display:block;
 }
 
 .container {
